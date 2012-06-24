@@ -14,6 +14,11 @@
 " LIMITATIONS:
 " ASSUMPTIONS:
 " KNOWN PROBLEMS:
+"   - The 'hlsearch' setting is still global, so a search / goto match / etc. in
+"     one tab undoes the effects of a :nohlsearch command in another tab. This
+"     cannot be solved within the autocmds, because the effects of :nohlsearch
+"     are undone; cp. |function-search-undo|. 
+"
 " TODO:
 "
 " Copyright: (C) 2009 by Ingo Karkat
@@ -35,4 +40,4 @@ augroup SearchPatternPerTab
     autocmd! TabLeave * let t:SearchPattern = @/
 augroup END
 
-" vim: set sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
+" vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
