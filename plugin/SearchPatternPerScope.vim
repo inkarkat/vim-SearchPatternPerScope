@@ -43,10 +43,12 @@ function! s:OnTabEnter()
     endif
 endfunction
 function! s:OnTabLeave()
-    if g:SearchPatternPerTab || exists('t:SearchPatternScoped')
-	let t:SearchPatternScoped = @/
-    elseif ! exists('w:SearchPatternScoped')
-	let s:save_search = @/
+    if ! exists('w:SearchPatternScoped')
+	if g:SearchPatternPerTab || exists('t:SearchPatternScoped')
+	    let t:SearchPatternScoped = @/
+	else
+	    let s:save_search = @/
+	endif
     endif
 endfunction
 function! s:OnWinEnter()
