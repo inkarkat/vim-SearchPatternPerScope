@@ -32,31 +32,59 @@ endif
 
 "- functions -------------------------------------------------------------------
 
-let s:save_tab_search = ''
+let s:save_search = ''
+
+" The event order is WinLeave, TabLeave, WinEnter, TabEnter.
 function! s:OnTabEnter()
     if exists('t:SearchPatternScoped')
 	let @/ = t:SearchPatternScoped
-    else
-	let @/ = s:save_tab_search
+    elseif ! exists('w:SearchPatternScoped')
+	let @/ = s:save_search
     endif
 endfunction
 function! s:OnTabLeave()
     if g:SearchPatternPerTab || exists('t:SearchPatternScoped')
 	let t:SearchPatternScoped = @/
+    elseif ! exists('w:SearchPatternScoped')
+	let s:save_search = @/
+    endif
+endfunction
+function! s:OnWinEnter()
+    if exists('w:SearchPatternScoped')
+	let @/ = w:SearchPatternScoped
+    elseif exists('t:SearchPatternScoped')
+	let @/ = t:SearchPatternScoped
     else
-	let s:save_tab_search = @/
+	let @/ = s:save_search
+    endif
+endfunction
+function! s:OnWinLeave()
+    if g:SearchPatternPerWin || exists('w:SearchPatternScoped')
+	let w:SearchPatternScoped = @/
+    elseif ! exists('t:SearchPatternScoped')
+	let s:save_search = @/
     endif
 endfunction
 
 function! s:TabLocal()
     if exists('t:SearchPatternScoped') | return | endif
 
-    let s:save_tab_search = @/
+    let s:save_search = @/
     let t:SearchPatternScoped = @/
 endfunction
 function! s:NoTabLocal()
-    let @/ = s:save_tab_search
+    let @/ = s:save_search
     unlet! t:SearchPatternScoped
+endfunction
+function! s:WinLocal()
+    if exists('w:SearchPatternScoped') | return | endif
+
+    let s:save_search = @/
+    let w:SearchPatternScoped = @/
+endfunction
+function! s:NoWinLocal()
+    let @/ = s:save_search
+    unlet! w:SearchPatternScoped
 endfunction
 
 function! s:EnableTabAutocmds()
@@ -68,35 +96,6 @@ endfunction
 function! s:DisableTabAutocmds()
     autocmd! SearchPatternPerTab
 endfunction
-
-
-let s:save_win_search = ''
-function! s:OnWinEnter()
-    if exists('w:SearchPatternScoped')
-	let @/ = w:SearchPatternScoped
-    else
-	let @/ = s:save_win_search
-    endif
-endfunction
-function! s:OnWinLeave()
-    if g:SearchPatternPerWin || exists('w:SearchPatternScoped')
-	let w:SearchPatternScoped = @/
-    else
-	let s:save_win_search = @/
-    endif
-endfunction
-
-function! s:WinLocal()
-    if exists('w:SearchPatternScoped') | return | endif
-
-    let s:save_win_search = @/
-    let w:SearchPatternScoped = @/
-endfunction
-function! s:NoWinLocal()
-    let @/ = s:save_win_search
-    unlet! w:SearchPatternScoped
-endfunction
-
 function! s:EnableWinAutocmds()
     augroup SearchPatternPerWin
 	autocmd! WinEnter * call <SID>OnWinEnter()
@@ -125,11 +124,13 @@ command! -bar NoSearchPatternWinLocal                                 call <SID>
 
 nnoremap <silent> <Plug>(SearchPatternForNewTab) :<C-u>tab split<Bar>SearchPatternTabLocal<CR>
 if ! hasmapto('<Plug>(SearchPatternForNewTab)', 'n')
+    nmap <C-w>/t     <Plug>(SearchPatternForNewTab)
     nmap <C-w>/<C-t> <Plug>(SearchPatternForNewTab)
 endif
 nnoremap <silent> <Plug>(SearchPatternForNewWin) :<C-u>split<Bar>SearchPatternWinLocal<CR>
 if ! hasmapto('<Plug>(SearchPatternForNewWin)', 'n')
-    nmap <C-w>/<C-n> <Plug>(SearchPatternForNewWin)
+    nmap <C-w>/s     <Plug>(SearchPatternForNewWin)
+    nmap <C-w>/<C-s> <Plug>(SearchPatternForNewWin)
 endif
 
 
