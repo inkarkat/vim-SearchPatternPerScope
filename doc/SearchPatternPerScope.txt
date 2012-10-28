@@ -1,0 +1,138 @@
+*SearchPatternPerScope.txt*	Maintain separate search patterns (@/) per window / tab page.
+
+		   SEARCH PATTERN PER SCOPE    by Ingo Karkat
+						     *SearchPatternPerScope.vim*
+description			|SearchPatternPerScope-description|
+usage				|SearchPatternPerScope-usage|
+installation			|SearchPatternPerScope-installation|
+configuration			|SearchPatternPerScope-configuration|
+integration			|SearchPatternPerScope-integration|
+limitations			|SearchPatternPerScope-limitations|
+known problems			|SearchPatternPerScope-known-problems|
+todo				|SearchPatternPerScope-todo|
+history				|SearchPatternPerScope-history|
+
+==============================================================================
+DESCRIPTION				   *SearchPatternPerScope-description*
+
+This plugin ...
+			The mappings are useful for doing some quick exploration of the current
+			buffer. When you close the tab page / window, the
+			original search pattern will be restored.
+
+HOW IT WORKS								     *
+
+SEE ALSO								     *
+
+RELATED WORKS								     *
+
+==============================================================================
+USAGE						 *SearchPatternPerScope-usage*
+
+			       *:SearchPatternPerTab* *:NoSearchPatternPerTab*
+:SearchPatternPerTab	Maintain a separate search pattern |quote/|per tab
+			page. From now on, searches only affect the search
+			pattern of the current tab page.
+:NoSearchPatternPerTab	Revert to a single global search pattern for all tab
+			pages.
+
+			   *:SearchPatternTabLocal* *:NoSearchPatternTabLocal*
+:SearchPatternTabLocal	Maintain a separate search pattern |quote/| for the
+			current tab page. Other tab pages will keep the global
+			search pattern.
+:NoSearchPatternTabLocal
+			Discard the search pattern for the current tab page
+			and use the global one for this tab page again.
+
+
+						*CTRL-W_/_t* *CTRL-W_/_CTRL-T*
+CTRL-W_/_t		Clone the current window to a new tab page and
+CTRL-W_/_CTRL-T		maintain a separate search pattern in that tab page.
+
+			       *:SearchPatternPerWin* *:NoSearchPatternPerWin*
+:SearchPatternPerWin	Maintain a separate search pattern |quote/|per window.
+			From now on, searches only affect the search pattern
+			of the current window.
+:NoSearchPatternPerWin	Revert to a single global search pattern for all win
+			pages.
+
+			   *:SearchPatternWinLocal* *:NoSearchPatternWinLocal*
+:SearchPatternWinLocal	Maintain a separate search pattern |quote/| for the
+			current window. Other windows will keep the global
+			search pattern.
+:NoSearchPatternWinLocal
+			Discard the search pattern for the current window and
+			use the global one for this window again.
+
+						*CTRL-W_/_s* *CTRL-W_/_CTRL-S*
+CTRL-W_/_s		Split the current window and maintain a separate
+CTRL-W_/_CTRL-S		search pattern in that window.
+
+
+Note that there is still a single, global history of search patterns.
+
+==============================================================================
+INSTALLATION				  *SearchPatternPerScope-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim SearchPatternPerScope*.vmb.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES				  *SearchPatternPerScope-dependencies*
+
+- Requires Vim 7.0 or higher.
+
+==============================================================================
+CONFIGURATION				 *SearchPatternPerScope-configuration*
+
+For a permanent configuration, put the following commands into your |vimrc|:
+
+			       *g:SearchPatternPerTab* *g:SearchPatternPerWin*
+By default, the plugin is disabled; you need to enable it locally
+(|:SearchPatternTabLocal| / |:SearchPatternWinLocal|) or globally
+(|:SearchPatternPerTab| / |:SearchPatternPerWin|) first. If you always want
+tab-local / window-local search patterns: >
+    :let g:SearchPatternPerTab = 1
+    :let g:SearchPatternPerWin = 1
+<
+==============================================================================
+INTEGRATION				   *SearchPatternPerScope-integration*
+
+==============================================================================
+LIMITATIONS				   *SearchPatternPerScope-limitations*
+
+- The search register is still global, so with window-local search patterns,
+  all other windows will show the matches of the current window's pattern, not
+  the pattern that will be active when the window becomes active. This is no
+  issue with tab pages because only one can be active at a time.
+- The 'hlsearch' setting is still global, so a search / goto match / etc. in
+  one tab undoes the effects of a :nohlsearch command in another tab. This
+  cannot be solved within the autocmds, because the effects of :nohlsearch are
+  undone; cp. |function-search-undo|.
+
+KNOWN PROBLEMS				*SearchPatternPerScope-known-problems*
+
+TODO						  *SearchPatternPerScope-todo*
+
+IDEAS						 *SearchPatternPerScope-ideas*
+
+==============================================================================
+HISTORY					       *SearchPatternPerScope-history*
+
+GOAL
+First published version.
+
+0.01	28-May-2009
+Started development.
+
+==============================================================================
+Copyright: (C) 2009-2012 Ingo Karkat
+The VIM LICENSE applies to this script; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
