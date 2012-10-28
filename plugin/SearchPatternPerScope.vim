@@ -9,7 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	002	25-Oct-2012	Rename and generalize for both windows and tab
+"   1.00.002	25-Oct-2012	Rename and generalize for both windows and tab
 "				pages.
 "				Add mappings to clone and localize the search.
 "	001	28-May-2009	file creation
@@ -35,11 +35,11 @@ endif
 let s:save_search = ''
 
 " The event order is WinLeave, TabLeave, WinEnter, TabEnter.
-function! s:OnTabEnter()
-    if exists('t:SearchPatternScoped')
-	let @/ = t:SearchPatternScoped
-    elseif ! exists('w:SearchPatternScoped')
-	let @/ = s:save_search
+function! s:OnWinLeave()
+    if g:SearchPatternPerWin || exists('w:SearchPatternScoped')
+	let w:SearchPatternScoped = @/
+    elseif ! exists('t:SearchPatternScoped')
+	let s:save_search = @/
     endif
 endfunction
 function! s:OnTabLeave()
@@ -60,32 +60,46 @@ function! s:OnWinEnter()
 	let @/ = s:save_search
     endif
 endfunction
-function! s:OnWinLeave()
-    if g:SearchPatternPerWin || exists('w:SearchPatternScoped')
-	let w:SearchPatternScoped = @/
-    elseif ! exists('t:SearchPatternScoped')
-	let s:save_search = @/
+function! s:OnTabEnter()
+    if ! exists('w:SearchPatternScoped')
+	if exists('t:SearchPatternScoped')
+	    let @/ = t:SearchPatternScoped
+	else
+	    let @/ = s:save_search
+	endif
     endif
 endfunction
 
 function! s:TabLocal()
     if exists('t:SearchPatternScoped') | return | endif
 
-    let s:save_search = @/
-    let t:SearchPatternScoped = @/
+    if exists('w:SearchPatternScoped')
+	let t:SearchPatternScoped = s:save_search
+    else
+	let t:SearchPatternScoped = @/
+	let s:save_search = @/
+    endif
 endfunction
 function! s:NoTabLocal()
-    let @/ = s:save_search
+    if ! exists('w:SearchPatternScoped')
+	let @/ = s:save_search
+    endif
     unlet! t:SearchPatternScoped
 endfunction
 function! s:WinLocal()
     if exists('w:SearchPatternScoped') | return | endif
 
-    let s:save_search = @/
     let w:SearchPatternScoped = @/
+    if ! exists('t:SearchPatternScoped')
+	let s:save_search = @/
+    endif
 endfunction
 function! s:NoWinLocal()
-    let @/ = s:save_search
+    if exists('t:SearchPatternScoped')
+	let @/ = t:SearchPatternScoped
+    else
+	let @/ = s:save_search
+    endif
     unlet! w:SearchPatternScoped
 endfunction
 
