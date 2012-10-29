@@ -1,4 +1,4 @@
-*SearchPatternPerScope.txt*	Maintain separate search patterns (@/) per window / tab page.
+*SearchPatternPerScope.txt*	Maintain separate search patterns ("/) per window / tab page.
 
 		   SEARCH PATTERN PER SCOPE    by Ingo Karkat
 						     *SearchPatternPerScope.vim*
@@ -15,14 +15,36 @@ history				|SearchPatternPerScope-history|
 ==============================================================================
 DESCRIPTION				   *SearchPatternPerScope-description*
 
-This plugin ...
-			The mappings are useful for doing some quick exploration of the current
-			buffer. When you close the tab page / window, the
-			original search pattern will be restored.
+Searches are essential for navigation and exploration in Vim. Type "/pattern"
+or use the |star| command, then repeatedly jump to matches via |n|/|N|. The
+search pattern is a global register, so the same pattern applies to all
+windows. Usually, this is great, but there can be occasions where one wants to
+maintain a different search pattern in a window, or an entire tab. Some use a
+workflow where related files are grouped in a tab page, but different,
+unrelated projects are opened in parallel in tabs. Though you can restore a
+previous search pattern in the search command-line (<Up>), this is tedious.
+
+This plugin segregates the search pattern |@/| into tab page- or window-local
+scopes, either globally for all, or on demand for selected ones. When you
+change the search pattern in one of those localized scopes, it will not affect
+the other windows; i.e. as soon as you move out of the scope, the global (or a
+different pattern from another local scope) will be restored.
+The provided mappings are useful for doing some quick exploration of the current
+buffer. Split it, and freely perform queries, jump around, investigate. When
+you close the tab page / window (or move out of it), the original search
+pattern will be restored.
 
 HOW IT WORKS								     *
 
+When you define a local scope for the first time, autocmds are established
+that save and restore the contents of the |quote/| register.
+
 SEE ALSO								     *
+
+- The HistoryRecall plugin (vimscript #0000) allows quick recall of the Nth
+  or queried search pattern. This is great when you need to juggle a few
+  different searches, but for free exploration, the search scopes are less
+  taxing.
 
 RELATED WORKS								     *
 
@@ -44,17 +66,17 @@ USAGE						 *SearchPatternPerScope-usage*
 			Discard the search pattern for the current tab page
 			and use the global one for this tab page again.
 
-
 						*CTRL-W_/_t* *CTRL-W_/_CTRL-T*
 CTRL-W_/_t		Clone the current window to a new tab page and
 CTRL-W_/_CTRL-T		maintain a separate search pattern in that tab page.
+
 
 			       *:SearchPatternPerWin* *:NoSearchPatternPerWin*
 :SearchPatternPerWin	Maintain a separate search pattern |quote/|per window.
 			From now on, searches only affect the search pattern
 			of the current window.
-:NoSearchPatternPerWin	Revert to a single global search pattern for all win
-			pages.
+:NoSearchPatternPerWin	Revert to a single global search pattern for all
+			windows.
 
 			   *:SearchPatternWinLocal* *:NoSearchPatternWinLocal*
 :SearchPatternWinLocal	Maintain a separate search pattern |quote/| for the
@@ -99,8 +121,21 @@ tab-local / window-local search patterns: >
     :let g:SearchPatternPerTab = 1
     :let g:SearchPatternPerWin = 1
 <
+						 *SearchPatternPerScope-remap*
+If you want to use different mappings, map your keys to the
+<Plug>(SearchPatternForNew...) mapping targets _before_ sourcing the script
+(e.g. in your |vimrc|): >
+    nmap <Leader>/s  <Plug>(SearchPatternForNewWin)
+    nmap <Leader>/t  <Plug>(SearchPatternForNewTab)
+<
 ==============================================================================
 INTEGRATION				   *SearchPatternPerScope-integration*
+
+It is useful to have an indication of whether there is local scoping for the
+current window or tab page. You can check for the existence of the >
+    w:SearchPatternScoped
+    t:SearchPatternScoped
+variables to build a custom indicator for your 'statusline' or 'titlestring'.
 
 ==============================================================================
 LIMITATIONS				   *SearchPatternPerScope-limitations*
@@ -108,7 +143,7 @@ LIMITATIONS				   *SearchPatternPerScope-limitations*
 - The search register is still global, so with window-local search patterns,
   all other windows will show the matches of the current window's pattern, not
   the pattern that will be active when the window becomes active. This is no
-  issue with tab pages because only one can be active at a time.
+  issue with tab pages because only one can be visible at a time.
 - The 'hlsearch' setting is still global, so a search / goto match / etc. in
   one tab undoes the effects of a :nohlsearch command in another tab. This
   cannot be solved within the autocmds, because the effects of :nohlsearch are
@@ -123,7 +158,7 @@ IDEAS						 *SearchPatternPerScope-ideas*
 ==============================================================================
 HISTORY					       *SearchPatternPerScope-history*
 
-GOAL
+1.00	29-Oct-2012
 First published version.
 
 0.01	28-May-2009
