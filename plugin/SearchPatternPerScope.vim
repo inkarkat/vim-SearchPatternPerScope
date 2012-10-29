@@ -1,4 +1,4 @@
-" SearchPatternPerScope.vim: Maintain separate search patterns (@/) per window / tab page.
+" SearchPatternPerScope.vim: Maintain separate search patterns ("/) per window / tab page.
 "
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher.
@@ -9,6 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.003	29-Oct-2012	Split off autoload script.
 "   1.00.002	25-Oct-2012	Rename and generalize for both windows and tab
 "				pages.
 "				Add mappings to clone and localize the search.
@@ -30,110 +31,17 @@ if ! exists('g:SearchPatternPerWin')
 endif
 
 
-"- functions -------------------------------------------------------------------
-
-let s:save_search = ''
-
-" The event order is WinLeave, TabLeave, WinEnter, TabEnter.
-function! s:OnWinLeave()
-    if g:SearchPatternPerWin || exists('w:SearchPatternScoped')
-	let w:SearchPatternScoped = @/
-    elseif ! exists('t:SearchPatternScoped')
-	let s:save_search = @/
-    endif
-endfunction
-function! s:OnTabLeave()
-    if ! exists('w:SearchPatternScoped')
-	if g:SearchPatternPerTab || exists('t:SearchPatternScoped')
-	    let t:SearchPatternScoped = @/
-	else
-	    let s:save_search = @/
-	endif
-    endif
-endfunction
-function! s:OnWinEnter()
-    if exists('w:SearchPatternScoped')
-	let @/ = w:SearchPatternScoped
-    elseif exists('t:SearchPatternScoped')
-	let @/ = t:SearchPatternScoped
-    else
-	let @/ = s:save_search
-    endif
-endfunction
-function! s:OnTabEnter()
-    if ! exists('w:SearchPatternScoped')
-	if exists('t:SearchPatternScoped')
-	    let @/ = t:SearchPatternScoped
-	else
-	    let @/ = s:save_search
-	endif
-    endif
-endfunction
-
-function! s:TabLocal()
-    if exists('t:SearchPatternScoped') | return | endif
-
-    if exists('w:SearchPatternScoped')
-	let t:SearchPatternScoped = s:save_search
-    else
-	let t:SearchPatternScoped = @/
-	let s:save_search = @/
-    endif
-endfunction
-function! s:NoTabLocal()
-    if ! exists('w:SearchPatternScoped')
-	let @/ = s:save_search
-    endif
-    unlet! t:SearchPatternScoped
-endfunction
-function! s:WinLocal()
-    if exists('w:SearchPatternScoped') | return | endif
-
-    let w:SearchPatternScoped = @/
-    if ! exists('t:SearchPatternScoped')
-	let s:save_search = @/
-    endif
-endfunction
-function! s:NoWinLocal()
-    if exists('t:SearchPatternScoped')
-	let @/ = t:SearchPatternScoped
-    else
-	let @/ = s:save_search
-    endif
-    unlet! w:SearchPatternScoped
-endfunction
-
-function! s:EnableTabAutocmds()
-    augroup SearchPatternPerTab
-	autocmd! TabEnter * call <SID>OnTabEnter()
-	autocmd! TabLeave * call <SID>OnTabLeave()
-    augroup END
-endfunction
-function! s:DisableTabAutocmds()
-    autocmd! SearchPatternPerTab
-endfunction
-function! s:EnableWinAutocmds()
-    augroup SearchPatternPerWin
-	autocmd! WinEnter * call <SID>OnWinEnter()
-	autocmd! WinLeave * call <SID>OnWinLeave()
-    augroup END
-endfunction
-function! s:DisableWinAutocmds()
-    autocmd! SearchPatternPerWin
-endfunction
-
-
 "- commands --------------------------------------------------------------------
 
-command! -bar   SearchPatternPerTab   let g:SearchPatternPerTab = 1 | call <SID>TabLocal() | call <SID>EnableTabAutocmds()
-command! -bar NoSearchPatternPerTab   let g:SearchPatternPerTab = 0                        | call <SID>DisableTabAutocmds()
-command! -bar   SearchPatternTabLocal                                 call <SID>TabLocal() | call <SID>EnableTabAutocmds()
-command! -bar NoSearchPatternTabLocal                                 call <SID>NoTabLocal()
+command! -bar   SearchPatternPerTab   let g:SearchPatternPerTab = 1 | call SearchPatternPerScope#TabLocal() | call SearchPatternPerScope#EnableTabAutocmds()
+command! -bar NoSearchPatternPerTab   let g:SearchPatternPerTab = 0                                         | call SearchPatternPerScope#DisableTabAutocmds()
+command! -bar   SearchPatternTabLocal                                 call SearchPatternPerScope#TabLocal() | call SearchPatternPerScope#EnableTabAutocmds()
+command! -bar NoSearchPatternTabLocal                                 call SearchPatternPerScope#NoTabLocal()
 
-command! -bar   SearchPatternPerWin   let g:SearchPatternPerWin = 1 | call <SID>WinLocal() | call <SID>EnableWinAutocmds()
-command! -bar NoSearchPatternPerWin   let g:SearchPatternPerWin = 0                        | call <SID>DisableWinAutocmds()
-command! -bar   SearchPatternWinLocal                                 call <SID>WinLocal() | call <SID>EnableWinAutocmds()
-command! -bar NoSearchPatternWinLocal                                 call <SID>NoWinLocal()
+command! -bar   SearchPatternPerWin   let g:SearchPatternPerWin = 1 | call SearchPatternPerScope#WinLocal() | call SearchPatternPerScope#EnableWinAutocmds()
+command! -bar NoSearchPatternPerWin   let g:SearchPatternPerWin =                  0                        | call SearchPatternPerScope#DisableWinAutocmds()
+command! -bar   SearchPatternWinLocal                                 call SearchPatternPerScope#WinLocal() | call SearchPatternPerScope#EnableWinAutocmds()
+command! -bar NoSearchPatternWinLocal                                 call SearchPatternPerScope#NoWinLocal()
 
 
 "- mappings --------------------------------------------------------------------
