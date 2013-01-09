@@ -45,6 +45,8 @@ SEE ALSO								     *
   or queried search pattern. This is great when you need to juggle a few
   different searches, but for free exploration, the search scopes are less
   taxing.
+- The SearchAsQuickJump plugin (vimscript #0000) allows searching without
+  affecting 'hlsearch', search pattern and history.
 
 RELATED WORKS								     *
 
@@ -66,9 +68,9 @@ USAGE						 *SearchPatternPerScope-usage*
 			Discard the search pattern for the current tab page
 			and use the global one for this tab page again.
 
-						*CTRL-W_/_t* *CTRL-W_/_CTRL-T*
-CTRL-W_/_t		Clone the current window to a new tab page and
-CTRL-W_/_CTRL-T		maintain a separate search pattern in that tab page.
+								    *CTRL-W_T*
+CTRL-W T		Clone the current window to a new tab page and
+			maintain a separate search pattern in that tab page.
 
 
 			       *:SearchPatternPerWin* *:NoSearchPatternPerWin*
@@ -86,9 +88,9 @@ CTRL-W_/_CTRL-T		maintain a separate search pattern in that tab page.
 			Discard the search pattern for the current window and
 			use the global one for this window again.
 
-						*CTRL-W_/_s* *CTRL-W_/_CTRL-S*
-CTRL-W_/_s		Split the current window and maintain a separate
-CTRL-W_/_CTRL-S		search pattern in that window.
+								    *CTRL-W_S*
+CTRL-W S		Split the current window and maintain a separate
+			search pattern in that window.
 
 
 Note that there is still a single, global history of search patterns.
