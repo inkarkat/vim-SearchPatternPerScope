@@ -24,7 +24,7 @@ workflow where related files are grouped in a tab page, but different,
 unrelated projects are opened in parallel in tabs. Though you can restore a
 previous search pattern in the search command-line (<Up>), this is tedious.
 
-This plugin segregates the search pattern |@/| into tab page- or window-local
+This plugin segregates the search pattern |quote/| into tab page- or window-local
 scopes, either globally for all, or on demand for selected ones. When you
 change the search pattern in one of those localized scopes, it will not affect
 the other windows; i.e. as soon as you move out of the scope, the global (or a
