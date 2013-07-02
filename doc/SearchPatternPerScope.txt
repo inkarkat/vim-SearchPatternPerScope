@@ -160,7 +160,7 @@ IDEAS						 *SearchPatternPerScope-ideas*
 ==============================================================================
 HISTORY					       *SearchPatternPerScope-history*
 
-1.00	29-Oct-2012
+GOAL
 First published version.
 
 0.01	28-May-2009
