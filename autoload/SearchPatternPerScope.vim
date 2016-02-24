@@ -3,12 +3,17 @@
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher.
 
-" Copyright: (C) 2009-2012 Ingo Karkat
+" Copyright: (C) 2009-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.004	03-Jul-2013	Don't issue an E216 error on
+"				:NoSearchPatternPerTab and
+"				:NoSearchPatternPerWin. Instead, silently ignore
+"				this, like the :NoSearchPatternTabLocal commands
+"				do.
 "   1.00.003	29-Oct-2012	Split off autoload script.
 "   1.00.002	25-Oct-2012	Rename and generalize for both windows and tab
 "				pages.
@@ -93,7 +98,7 @@ function! SearchPatternPerScope#EnableTabAutocmds()
     augroup END
 endfunction
 function! SearchPatternPerScope#DisableTabAutocmds()
-    autocmd! SearchPatternPerTab
+    silent! autocmd! SearchPatternPerTab
 endfunction
 function! SearchPatternPerScope#EnableWinAutocmds()
     augroup SearchPatternPerWin
@@ -102,7 +107,7 @@ function! SearchPatternPerScope#EnableWinAutocmds()
     augroup END
 endfunction
 function! SearchPatternPerScope#DisableWinAutocmds()
-    autocmd! SearchPatternPerWin
+    silent! autocmd! SearchPatternPerWin
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
