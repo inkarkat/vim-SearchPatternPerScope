@@ -9,6 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.004	30-Oct-2012	Change mappings.
 "   1.00.003	29-Oct-2012	Split off autoload script.
 "   1.00.002	25-Oct-2012	Rename and generalize for both windows and tab
 "				pages.
@@ -48,13 +49,11 @@ command! -bar NoSearchPatternWinLocal                                 call Searc
 
 nnoremap <silent> <Plug>(SearchPatternForNewTab) :<C-u>tab split<Bar>SearchPatternTabLocal<CR>
 if ! hasmapto('<Plug>(SearchPatternForNewTab)', 'n')
-    nmap <C-w>/t     <Plug>(SearchPatternForNewTab)
-    nmap <C-w>/<C-t> <Plug>(SearchPatternForNewTab)
+    nmap <C-w>T <Plug>(SearchPatternForNewTab)
 endif
 nnoremap <silent> <Plug>(SearchPatternForNewWin) :<C-u>split<Bar>SearchPatternWinLocal<CR>
 if ! hasmapto('<Plug>(SearchPatternForNewWin)', 'n')
-    nmap <C-w>/s     <Plug>(SearchPatternForNewWin)
-    nmap <C-w>/<C-s> <Plug>(SearchPatternForNewWin)
+    nmap <C-w>S <Plug>(SearchPatternForNewWin)
 endif
 
 
