@@ -167,7 +167,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2009-2012 Ingo Karkat
+Copyright: (C) 2009-2013 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
