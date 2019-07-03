@@ -41,11 +41,11 @@ that save and restore the contents of the |quote/| register.
 
 SEE ALSO								     *
 
-- The HistoryRecall plugin (vimscript #0000) allows quick recall of the Nth
-  or queried search pattern. This is great when you need to juggle a few
+- The HistoryRecall.vim plugin (vimscript #0000) allows quick recall of the
+  Nth or queried search pattern. This is great when you need to juggle a few
   different searches, but for free exploration, the search scopes are less
   taxing.
-- The SearchAsQuickJump plugin (vimscript #0000) allows searching without
+- The SearchAsQuickJump.vim plugin (vimscript #0000) allows searching without
   affecting 'hlsearch', search pattern and history.
 
 RELATED WORKS								     *
@@ -167,7 +167,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2009-2013 Ingo Karkat
+Copyright: (C) 2009-2017 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
