@@ -54,7 +54,7 @@ RELATED WORKS								     *
 USAGE						 *SearchPatternPerScope-usage*
 
 			       *:SearchPatternPerTab* *:NoSearchPatternPerTab*
-:SearchPatternPerTab	Maintain a separate search pattern |quote/|per tab
+:SearchPatternPerTab	Maintain a separate search pattern |quote/| per tab
 			page. From now on, searches only affect the search
 			pattern of the current tab page.
 :NoSearchPatternPerTab	Revert to a single global search pattern for all tab
@@ -74,7 +74,7 @@ CTRL-W T		Clone the current window to a new tab page and
 
 
 			       *:SearchPatternPerWin* *:NoSearchPatternPerWin*
-:SearchPatternPerWin	Maintain a separate search pattern |quote/|per window.
+:SearchPatternPerWin	Maintain a separate search pattern |quote/| per window.
 			From now on, searches only affect the search pattern
 			of the current window.
 :NoSearchPatternPerWin	Revert to a single global search pattern for all
@@ -167,7 +167,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2009-2017 Ingo Karkat
+Copyright: (C) 2009-2019 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
