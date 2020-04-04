@@ -14,6 +14,9 @@ if exists('g:loaded_SearchPatternPerScope') || (v:version < 700)
 endif
 let g:loaded_SearchPatternPerScope = 1
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 "- configuration ---------------------------------------------------------------
 
 if ! exists('g:SearchPatternPerTab')
@@ -26,15 +29,34 @@ endif
 
 "- commands --------------------------------------------------------------------
 
-command! -bar   SearchPatternPerTab   let g:SearchPatternPerTab = 1 | call SearchPatternPerScope#TabLocal() | call SearchPatternPerScope#EnableTabAutocmds()
-command! -bar NoSearchPatternPerTab   let g:SearchPatternPerTab = 0                                         | call SearchPatternPerScope#DisableTabAutocmds()
-command! -bar   SearchPatternTabLocal                                 call SearchPatternPerScope#TabLocal() | call SearchPatternPerScope#EnableTabAutocmds()
-command! -bar NoSearchPatternTabLocal                                 call SearchPatternPerScope#NoTabLocal()
+command! -bar SearchPatternPerTab
+\   let g:SearchPatternPerTab = 1 |
+\   call SearchPatternPerScope#TabLocal() |
+\   call SearchPatternPerScope#EnableTabAutocmds()
+command! -bar NoSearchPatternPerTab
+\   let g:SearchPatternPerTab = 0 |
+\   call SearchPatternPerScope#DisableTabAutocmds()
 
-command! -bar   SearchPatternPerWin   let g:SearchPatternPerWin = 1 | call SearchPatternPerScope#WinLocal() | call SearchPatternPerScope#EnableWinAutocmds()
-command! -bar NoSearchPatternPerWin   let g:SearchPatternPerWin =                  0                        | call SearchPatternPerScope#DisableWinAutocmds()
-command! -bar   SearchPatternWinLocal                                 call SearchPatternPerScope#WinLocal() | call SearchPatternPerScope#EnableWinAutocmds()
-command! -bar NoSearchPatternWinLocal                                 call SearchPatternPerScope#NoWinLocal()
+command! -bar SearchPatternTabLocal
+\   call SearchPatternPerScope#TabLocal() |
+\   call SearchPatternPerScope#EnableTabAutocmds()
+command! -bar NoSearchPatternTabLocal
+\   call SearchPatternPerScope#NoTabLocal()
+
+
+command! -bar SearchPatternPerWin
+\   let g:SearchPatternPerWin = 1 |
+\   call SearchPatternPerScope#WinLocal() |
+\   call SearchPatternPerScope#EnableWinAutocmds()
+command! -bar NoSearchPatternPerWin
+\   let g:SearchPatternPerWin = 0 |
+\   call SearchPatternPerScope#DisableWinAutocmds()
+
+command! -bar SearchPatternWinLocal
+\   call SearchPatternPerScope#WinLocal() |
+\   call SearchPatternPerScope#EnableWinAutocmds()
+command! -bar NoSearchPatternWinLocal
+\   call SearchPatternPerScope#NoWinLocal()
 
 
 "- mappings --------------------------------------------------------------------
@@ -58,4 +80,6 @@ if g:SearchPatternPerWin
     SearchPatternPerWin
 endif
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
