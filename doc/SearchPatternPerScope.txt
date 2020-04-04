@@ -98,10 +98,16 @@ Note that there is still a single, global history of search patterns.
 ==============================================================================
 INSTALLATION				  *SearchPatternPerScope-installation*
 
-This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
-the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
-vimball or via the |:UseVimball| command. >
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-SearchPatternPerScope
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
     vim SearchPatternPerScope*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
@@ -157,6 +163,12 @@ TODO						  *SearchPatternPerScope-todo*
 
 IDEAS						 *SearchPatternPerScope-ideas*
 
+CONTRIBUTING				    *SearchPatternPerScope-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-SearchPatternPerScope/issues or email (address
+below).
+
 ==============================================================================
 HISTORY					       *SearchPatternPerScope-history*
 
@@ -167,7 +179,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2009-2019 Ingo Karkat
+Copyright: (C) 2009-2020 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
