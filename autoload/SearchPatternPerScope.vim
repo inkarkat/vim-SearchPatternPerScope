@@ -1,24 +1,11 @@
 " SearchPatternPerScope.vim: Maintain separate search patterns ("/) per window / tab page.
 "
 " DEPENDENCIES:
-"   - Requires Vim 7.0 or higher.
 
-" Copyright: (C) 2009-2013 Ingo Karkat
+" Copyright: (C) 2009-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.004	03-Jul-2013	Don't issue an E216 error on
-"				:NoSearchPatternPerTab and
-"				:NoSearchPatternPerWin. Instead, silently ignore
-"				this, like the :NoSearchPatternTabLocal commands
-"				do.
-"   1.00.003	29-Oct-2012	Split off autoload script.
-"   1.00.002	25-Oct-2012	Rename and generalize for both windows and tab
-"				pages.
-"				Add mappings to clone and localize the search.
-"	001	28-May-2009	file creation
 
 let s:save_search = ''
 

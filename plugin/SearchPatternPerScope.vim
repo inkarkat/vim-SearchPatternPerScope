@@ -3,18 +3,10 @@
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher.
 
-" Copyright: (C) 2009-2012 Ingo Karkat
+" Copyright: (C) 2009-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.004	30-Oct-2012	Change mappings.
-"   1.00.003	29-Oct-2012	Split off autoload script.
-"   1.00.002	25-Oct-2012	Rename and generalize for both windows and tab
-"				pages.
-"				Add mappings to clone and localize the search.
-"	001	28-May-2009	file creation
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_SearchPatternPerScope') || (v:version < 700)
