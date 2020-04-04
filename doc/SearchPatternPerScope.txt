@@ -54,14 +54,16 @@ RELATED WORKS								     *
 USAGE						 *SearchPatternPerScope-usage*
 
 			       *:SearchPatternPerTab* *:NoSearchPatternPerTab*
-:SearchPatternPerTab	Maintain a separate search pattern |quote/| per tab
+:SearchPatternPerTab [{pattern}]
+			Maintain a separate search pattern |quote/| per tab
 			page. From now on, searches only affect the search
 			pattern of the current tab page.
 :NoSearchPatternPerTab	Revert to a single global search pattern for all tab
 			pages.
 
 			   *:SearchPatternTabLocal* *:NoSearchPatternTabLocal*
-:SearchPatternTabLocal	Maintain a separate search pattern |quote/| for the
+:SearchPatternTabLocal [{pattern}]
+			Maintain a separate search pattern |quote/| for the
 			current tab page. Other tab pages will keep the global
 			search pattern.
 :NoSearchPatternTabLocal
@@ -74,14 +76,16 @@ CTRL-W T		Clone the current window to a new tab page and
 
 
 			       *:SearchPatternPerWin* *:NoSearchPatternPerWin*
-:SearchPatternPerWin	Maintain a separate search pattern |quote/| per window.
+:SearchPatternPerWin [{pattern}]
+			Maintain a separate search pattern |quote/| per window.
 			From now on, searches only affect the search pattern
 			of the current window.
 :NoSearchPatternPerWin	Revert to a single global search pattern for all
 			windows.
 
 			   *:SearchPatternWinLocal* *:NoSearchPatternWinLocal*
-:SearchPatternWinLocal	Maintain a separate search pattern |quote/| for the
+:SearchPatternWinLocal [{pattern}]
+			Maintain a separate search pattern |quote/| for the
 			current window. Other windows will keep the global
 			search pattern.
 :NoSearchPatternWinLocal

@@ -29,31 +29,35 @@ endif
 
 "- commands --------------------------------------------------------------------
 
-command! -bar SearchPatternPerTab
+command! -bar -nargs=? SearchPatternPerTab
 \   let g:SearchPatternPerTab = 1 |
 \   call SearchPatternPerScope#TabLocal() |
+\   if ! empty(<q-args>) | let @/ = <q-args> | call histadd('search', @/) | endif |
 \   call SearchPatternPerScope#EnableTabAutocmds()
 command! -bar NoSearchPatternPerTab
 \   let g:SearchPatternPerTab = 0 |
 \   call SearchPatternPerScope#DisableTabAutocmds()
 
-command! -bar SearchPatternTabLocal
+command! -bar -nargs=? SearchPatternTabLocal
 \   call SearchPatternPerScope#TabLocal() |
+\   if ! empty(<q-args>) | let @/ = <q-args> | call histadd('search', @/) | endif |
 \   call SearchPatternPerScope#EnableTabAutocmds()
 command! -bar NoSearchPatternTabLocal
 \   call SearchPatternPerScope#NoTabLocal()
 
 
-command! -bar SearchPatternPerWin
+command! -bar -nargs=? SearchPatternPerWin
 \   let g:SearchPatternPerWin = 1 |
 \   call SearchPatternPerScope#WinLocal() |
+\   if ! empty(<q-args>) | let @/ = <q-args> | call histadd('search', @/) | endif |
 \   call SearchPatternPerScope#EnableWinAutocmds()
 command! -bar NoSearchPatternPerWin
 \   let g:SearchPatternPerWin = 0 |
 \   call SearchPatternPerScope#DisableWinAutocmds()
 
-command! -bar SearchPatternWinLocal
+command! -bar -nargs=? SearchPatternWinLocal
 \   call SearchPatternPerScope#WinLocal() |
+\   if ! empty(<q-args>) | let @/ = <q-args> | call histadd('search', @/) | endif |
 \   call SearchPatternPerScope#EnableWinAutocmds()
 command! -bar NoSearchPatternWinLocal
 \   call SearchPatternPerScope#NoWinLocal()
