@@ -31,6 +31,9 @@ that save and restore the contents of the quote/ register.
 
 ### SEE ALSO
 
+- The SearchAsQuickJump.vim plugin ([vimscript #5619](http://www.vim.org/scripts/script.php?script_id=5619)) allows searching without
+  affecting 'hlsearch', search pattern and history.
+
 USAGE
 ------------------------------------------------------------------------------
 

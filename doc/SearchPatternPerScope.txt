@@ -45,7 +45,7 @@ SEE ALSO								     *
   Nth or queried search pattern. This is great when you need to juggle a few
   different searches, but for free exploration, the search scopes are less
   taxing.
-- The SearchAsQuickJump.vim plugin (vimscript #0000) allows searching without
+- The SearchAsQuickJump.vim plugin (vimscript #5619) allows searching without
   affecting 'hlsearch', search pattern and history.
 
 RELATED WORKS								     *
