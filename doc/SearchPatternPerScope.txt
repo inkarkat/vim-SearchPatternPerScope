@@ -27,8 +27,8 @@ previous search pattern in the search command-line (<Up>), this is tedious.
 This plugin segregates the search pattern |quote/| into tab page- or window-local
 scopes, either globally for all, or on demand for selected ones. When you
 change the search pattern in one of those localized scopes, it will not affect
-the other windows; i.e. as soon as you move out of the scope, the global (or a
-different pattern from another local scope) will be restored.
+the other windows; i.e. as soon as you move out of the scope, the global
+pattern (or a different one from another local scope) will be restored.
 The provided mappings are useful for doing some quick exploration of the current
 buffer. Split it, and freely perform queries, jump around, investigate. When
 you close the tab page / window (or move out of it), the original search
@@ -52,7 +52,6 @@ RELATED WORKS								     *
 
 ==============================================================================
 USAGE						 *SearchPatternPerScope-usage*
-
 			       *:SearchPatternPerTab* *:NoSearchPatternPerTab*
 :SearchPatternPerTab [{pattern}]
 			Maintain a separate search pattern |quote/| per tab

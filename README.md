@@ -17,8 +17,8 @@ previous search pattern in the search command-line (&lt;Up&gt;), this is tedious
 This plugin segregates the search pattern quote/ into tab page- or window-local
 scopes, either globally for all, or on demand for selected ones. When you
 change the search pattern in one of those localized scopes, it will not affect
-the other windows; i.e. as soon as you move out of the scope, the global (or a
-different pattern from another local scope) will be restored.
+the other windows; i.e. as soon as you move out of the scope, the global
+pattern (or a different one from another local scope) will be restored.
 The provided mappings are useful for doing some quick exploration of the current
 buffer. Split it, and freely perform queries, jump around, investigate. When
 you close the tab page / window (or move out of it), the original search
@@ -34,13 +34,15 @@ that save and restore the contents of the quote/ register.
 USAGE
 ------------------------------------------------------------------------------
 
-    :SearchPatternPerTab    Maintain a separate search pattern quote/ per tab
+    :SearchPatternPerTab [{pattern}]
+                            Maintain a separate search pattern quote/ per tab
                             page. From now on, searches only affect the search
                             pattern of the current tab page.
     :NoSearchPatternPerTab  Revert to a single global search pattern for all tab
                             pages.
 
-    :SearchPatternTabLocal  Maintain a separate search pattern quote/ for the
+    :SearchPatternTabLocal [{pattern}]
+                            Maintain a separate search pattern quote/ for the
                             current tab page. Other tab pages will keep the global
                             search pattern.
     :NoSearchPatternTabLocal
@@ -50,13 +52,15 @@ USAGE
     CTRL-W T                Clone the current window to a new tab page and
                             maintain a separate search pattern in that tab page.
 
-    :SearchPatternPerWin    Maintain a separate search pattern quote/ per window.
+    :SearchPatternPerWin [{pattern}]
+                            Maintain a separate search pattern quote/ per window.
                             From now on, searches only affect the search pattern
                             of the current window.
     :NoSearchPatternPerWin  Revert to a single global search pattern for all
                             windows.
 
-    :SearchPatternWinLocal  Maintain a separate search pattern quote/ for the
+    :SearchPatternWinLocal [{pattern}]
+                            Maintain a separate search pattern quote/ for the
                             current window. Other windows will keep the global
                             search pattern.
     :NoSearchPatternWinLocal
